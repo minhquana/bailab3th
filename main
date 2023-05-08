@@ -1,0 +1,41 @@
+# bailab3th
+package javaapplication1;
+
+import java.time.LocalDate;
+
+public class Main {
+
+    /**
+     * @param args
+     */
+    public static void main(String[] args) {
+        // Tạo sản phẩm
+        Product product1 = new Product("sp4", "Nước tương", 8.000);
+        Product product2 = new Product("sp1", "Gạo", 18.000);
+        Product product3 = new Product("sp3", "Đường", 10.000);
+        Product product4 = new Product("sp1", "Gạo", 18.000);
+        
+        // Tạo hóa đơn
+        Order order = new Order(1, LocalDate.now(),     null);
+        
+        // Thêm sản phẩm vào hóa đơn
+        order.addLineItem(product1, 10);
+        order.addLineItem(product2, 5);
+        order.addLineItem(product3, 1);
+        order.addLineItem(product4, 1);
+        
+        // Tính tổng tiền hóa đơn
+        double totalCharge = order.calcTotalCharge();
+        
+        // In thông tin hóa đơn
+        System.out.println("Order ID: " + order.getOrderID());
+        System.out.println("Order Date: " + order.getOrderDate());
+        System.out.println("Total charge: " + totalCharge);
+        System.out.println("Line items:");
+        
+        for (OrderDetail lineItem : order.getLineItems()) {
+            System.out.println(lineItem.getProduct().getDescription() + " - " + lineItem.getQuantity() + " - " + lineItem.calcTotalPrice());
+        }
+    }
+}
+
